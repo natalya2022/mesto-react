@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { api } from '../utils/Api';
 import Card from './Card';
 
-
-const Main = ({onEditProfile, onAddPlace, onEditAvatar}) => {  
-  const [cards, setCards] = useState([]);  
+const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
+  const [cards, setCards] = useState([]);
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
@@ -12,7 +11,7 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar}) => {
   React.useEffect(() => {
     api
       .getUserInfo()
-      .then(user => {        
+      .then(user => {
         setUserName(user.name);
         setUserDescription(user.about);
         setUserAvatar(user.avatar);
@@ -28,7 +27,6 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar}) => {
       })
       .catch(err => console.log(err));
   }, []);
-
 
   return (
     <main className="content">
