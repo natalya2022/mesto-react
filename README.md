@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+Проект: Место
+GitHub Pages
+Ссылка на проект: https://natalya2022.github.io/mesto/
+Место - это проект о путешествиях, который позволяет создать свою страницу, загрузить на нее фотографии, разместить их в сети Интернет и получить обратную связь.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект представляет собой сайт, созданный на основе предоставленного макета и в соответствии с требованиями учебной программы YP.
 
-## Available Scripts
+На текущем этапе разработки проект поэтапно адаптируется для работы с библиотекой React JS.
 
-In the project directory, you can run:
+На данный момент для перехода к декларативному программированию реализовано:
 
-### `npm start`
+* создание функциональных компонентов - родительских и дочерних;
+* изменена HTML-разметка;
+* произведено подключение к API;
+* получены запросы от сервера, содержащие данные пользователя и массив карточек;
+* полностью сформировано расположение полученной информации на странице; приложения путем корректной отрисовки DOM-дерева;
+* использованы хуки React: UseState и useEffect;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Проект включает в себя следующие блоки:
+Блок head. В нем устанавливаются общие пераметры проекта и осуществляется подключение файла стилей index.css
 
-### `npm test`
+Блок header. Включает в себя логотип сайта.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Блок content содержит секции profile и photo-grid.
 
-### `npm run build`
+Секция profile. Включает основной заголовок сайта (h1), который одновременно является именем автора страницы, аватар, подпись к профилю, кнопки редактирования и добавления контента. Заголовок, а также логотип из предыдущего блока реализованы с помощью функции clamp, позволяющей добиться плавного изменения размера предусмотренных шрифтов заголовков и векторного изображения логотипа. Секция profile реализована с помощью нескольких вложенных flex-контейнеров.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Секция photo-grid представляет собой фотогалерею. Реализована она с помощью технологии grid. Количество столбцов и размер изображения изменяются динамически в зависимости от разрешения экрана. Достигается это путем применения функций repeat(auto-fill) и minmax. Включает в себя карточки с описанием достопримечательностей. Каждая карточка содержит заголовок, фото и кнопку добавления в Избранное.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Блок footer содержит в себе отметку copyright.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Блоки popup реализуют функционал модального окна, открывающегося в центре страницы и позволяющего редактировать данные профиля, создавать новую карточку изображения либо просматриувать его.
 
-### `npm run eject`
+В проекте реализована файловая структура БЭМ Nested.
+Все блоки размещены в отдельных папках и располагаются в общей папке blocks.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Шрифт подключен Inter. Подключение произведено в файле index.css.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Подключен файл normalize.css.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
