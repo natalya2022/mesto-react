@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { api } from '../utils/Api';
 import Card from './Card';
 
-const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
+const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
   const [cards, setCards] = useState([]);
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
@@ -16,7 +16,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
         setUserDescription(user.about);
         setUserAvatar(user.avatar);
       })
-      .catch(err => console.log(err));
+      .catch(console.error);
   }, []);
 
   React.useEffect(() => {
@@ -25,7 +25,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
       .then(cards => {
         setCards(cards);
       })
-      .catch(err => console.log(err));
+      .catch(console.error);
   }, []);
 
   return (
@@ -58,7 +58,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
       <section className="photo-grid" aria-label="Фотогалерея">
         <ul className="photo-grid__places">
           {cards.map(({ _id, ...props }) => (
-            <Card key={_id} {...props} />
+            <Card key={_id} onImagePopup={onImagePopup} {...props} />
           ))}
         </ul>
       </section>

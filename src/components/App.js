@@ -7,11 +7,14 @@ import PopupWithForm from './PopupWithForm';
 import FormEdit from './FormEdit';
 import FormAdd from './FormAdd';
 import FormAvatar from './FormAvatar';
+import ImagePopup from './ImagePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  const [imageData, setImageData] = useState({ link: '', name: '' });
 
   const handleEditAvatarClick = evt => {
     setEditAvatarPopupOpen(true);
@@ -25,10 +28,16 @@ function App() {
     setAddPlacePopupOpen(true);
   };
 
+  const handleImagePopupClick = (link, name) => {
+    setImagePopupOpen(true);
+    setImageData({ link, name });
+  };
+
   const closeAllPopups = () => {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
+    setImagePopupOpen(false);
   };
 
   return (
@@ -40,6 +49,7 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
+            onImagePopup={handleImagePopupClick}
           />
           <Footer />
         </div>
@@ -64,9 +74,16 @@ function App() {
           name={'place'}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          buttonText={'Создать'}
         >
           <FormAdd />
         </PopupWithForm>
+        <ImagePopup
+          link={imageData.link}
+          name={imageData.name}
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+        />
       </div>
     </div>
   );

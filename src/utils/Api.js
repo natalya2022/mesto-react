@@ -4,6 +4,7 @@ export default class Api {
     this._headers = apiParams.headers;    
   }
 
+  
   _checkRequest(res) {
     if (res.ok) {
       return res.json();
@@ -11,6 +12,10 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
   
+  // _request(endpoint, options) {
+  //   return fetch(endpoint, options).then(this._checkRequest)
+  // }
+
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
@@ -42,12 +47,28 @@ export default class Api {
   }
   
 
+  // getUserInfo() {
+  //   return fetch(`${this._baseUrl}/users/me`, {
+  //     headers: this._headers
+  //   })
+  //   .then(res => this._checkRequest(res));    
+  // }
+
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`/users/me1`, {
       headers: this._headers
-    })
-    .then(res => this._checkRequest(res));    
+    })    
   }
+
+  _request(endpoint, options) {
+    return fetch(`${this._baseUrl}${endpoint}`, options).then(res => this._checkRequest(res));
+  }
+
+  // `${this._baseUrl}/users/me`
+
+  // {
+  //   headers: this._headers
+  // }
 
 
   editUserProfile({name, about}) {    

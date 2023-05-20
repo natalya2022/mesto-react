@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import ImagePopup from './ImagePopup';
+import React from 'react';
 
-const Card = ({ name, link, likes }) => {
-  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+const Card = ({ name, link, likes, onImagePopup}) => {  
 
   return (
     <li className="photo-grid__place">
@@ -10,7 +8,7 @@ const Card = ({ name, link, likes }) => {
         src={link}
         alt={name}
         className="photo-grid__picture"
-        onClick={() => setImagePopupOpen(true)}
+        onClick={() => onImagePopup(link, name)}
       />
       <button className="photo-grid__delete" type="button" aria-label="Удалить изображение" />
       <div className="photo-grid__rectangle">
@@ -19,15 +17,7 @@ const Card = ({ name, link, likes }) => {
           <button className="photo-grid__like" type="button" aria-label="Добавить в избранное" />
           <p className="photo-grid__counter">{likes.length}</p>
         </div>
-      </div>
-      {isImagePopupOpen && (
-        <ImagePopup
-          link={link}
-          name={name}
-          isOpen={isImagePopupOpen}
-          onClose={() => setImagePopupOpen(false)}
-        />
-      )}
+      </div>      
     </li>
   );
 };
