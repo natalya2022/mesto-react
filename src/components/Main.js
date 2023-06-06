@@ -3,8 +3,9 @@ import { api } from '../utils/Api';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
-  const [cards, setCards] = useState([]);
+
+const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike }) => {
+  // const [cards, setCards] = useState([]);
   // const [userName, setUserName] = useState('');
   // const [userDescription, setUserDescription] = useState('');
   // const [userAvatar, setUserAvatar] = useState('');
@@ -21,14 +22,14 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
   //     .catch(console.error);
   // }, []);
 
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then(cards => {
-        setCards(cards);
-      })
-      .catch(console.error);
-  }, []);
+  // React.useEffect(() => {
+  //   api
+  //     .getInitialCards()
+  //     .then(cards => {
+  //       setCards(cards);
+  //     })
+  //     .catch(console.error);
+  // }, []);
 
   return (
     <main className="content">
@@ -59,8 +60,8 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
       </section>
       <section className="photo-grid" aria-label="Фотогалерея">
         <ul className="photo-grid__places">
-          {cards.map(({ _id, ...props }) => (
-            <Card key={_id} onImagePopup={onImagePopup} {...props} />
+          {cards.map((card) => (
+            <Card key={card._id} onImagePopup={onImagePopup} card={card} onCardLike={onCardLike}/>
           ))}
         </ul>
       </section>

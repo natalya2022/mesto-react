@@ -18,13 +18,22 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [imageData, setImageData] = useState({ link: '', name: '' });
   const [currentUser, setCurrentUser] = React.useState({});
-
+  const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
     api
       .getUserInfo()
       .then(user => {
         setCurrentUser(user);
+      })
+      .catch(console.error);
+  }, []);
+
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then(cards => {
+        setCards(cards);
       })
       .catch(console.error);
   }, []);
@@ -53,6 +62,13 @@ function App() {
     setImagePopupOpen(false);
   };
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.likeCard(card._id, isLiked).then(newCard => {
+      setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+    }).catch(console.error);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -64,6 +80,8 @@ function App() {
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
               onImagePopup={handleImagePopupClick}
+              onCardLike={handleCardLike}
+              cards={cards}
             />
             <Footer />
           </div>
@@ -100,7 +118,7 @@ function App() {
           />
         </div>
       </div>
-    </CurrentUserContext.Provider>  
+    </CurrentUserContext.Provider>
   );
 }
 
