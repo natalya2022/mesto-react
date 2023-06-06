@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './../index.css';
 import Footer from './Footer';
 import Header from './Header';
@@ -8,6 +8,8 @@ import FormEdit from './FormEdit';
 import FormAdd from './FormAdd';
 import FormAvatar from './FormAvatar';
 import ImagePopup from './ImagePopup';
+import { api } from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -15,6 +17,17 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [imageData, setImageData] = useState({ link: '', name: '' });
+  const [currentUser, setCurrentUser] = React.useState({});
+
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then(user => {
+        setCurrentUser(user);
+      })
+      .catch(console.error);
+  }, []);
 
   const handleEditAvatarClick = evt => {
     setEditAvatarPopupOpen(true);
@@ -41,51 +54,53 @@ function App() {
   };
 
   return (
-    <div className="root">
-      <div className="page">
-        <div className="wrap">
-          <Header />
-          <Main
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onImagePopup={handleImagePopupClick}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="root">
+        <div className="page">
+          <div className="wrap">
+            <Header />
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onImagePopup={handleImagePopupClick}
+            />
+            <Footer />
+          </div>
+          <PopupWithForm
+            title={'Обновить аватар'}
+            name={'avatar'}
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+          >
+            <FormAvatar />
+          </PopupWithForm>
+          <PopupWithForm
+            title={'Редактировать профиль'}
+            name={'profile'}
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+          >
+            <FormEdit />
+          </PopupWithForm>
+          <PopupWithForm
+            title={'Новое место'}
+            name={'place'}
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            buttonText={'Создать'}
+          >
+            <FormAdd />
+          </PopupWithForm>
+          <ImagePopup
+            link={imageData.link}
+            name={imageData.name}
+            isOpen={isImagePopupOpen}
+            onClose={closeAllPopups}
           />
-          <Footer />
         </div>
-        <PopupWithForm
-          title={'Обновить аватар'}
-          name={'avatar'}
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-        >
-          <FormAvatar />
-        </PopupWithForm>
-        <PopupWithForm
-          title={'Редактировать профиль'}
-          name={'profile'}
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <FormEdit />
-        </PopupWithForm>
-        <PopupWithForm
-          title={'Новое место'}
-          name={'place'}
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          buttonText={'Создать'}
-        >
-          <FormAdd />
-        </PopupWithForm>
-        <ImagePopup
-          link={imageData.link}
-          name={imageData.name}
-          isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
-        />
       </div>
-    </div>
+    </CurrentUserContext.Provider>  
   );
 }
 

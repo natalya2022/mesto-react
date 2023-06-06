@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { api } from '../utils/Api';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+  // const [userName, setUserName] = useState('');
+  // const [userDescription, setUserDescription] = useState('');
+  // const [userAvatar, setUserAvatar] = useState('');
+  const currentUser = React.useContext(CurrentUserContext);
 
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then(user => {
-        setUserName(user.name);
-        setUserDescription(user.about);
-        setUserAvatar(user.avatar);
-      })
-      .catch(console.error);
-  }, []);
+  // React.useEffect(() => {
+  //   api
+  //     .getUserInfo()
+  //     .then(user => {
+  //       setUserName(user.name);
+  //       setUserDescription(user.about);
+  //       setUserAvatar(user.avatar);
+  //     })
+  //     .catch(console.error);
+  // }, []);
 
   React.useEffect(() => {
     api
@@ -33,11 +35,11 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
       <section className="profile">
         <div className="profile__fill">
           <div className="profile__base" onClick={onEditAvatar}>
-            <img src={userAvatar} alt="Фото профиля" className="profile__avatar" />
+            <img src={currentUser.avatar} alt="Фото профиля" className="profile__avatar" />
           </div>
           <div className="profile__info">
             <div className="profile__name">
-              <h1 className="profile__title">{userName}</h1>
+              <h1 className="profile__title">{currentUser.name}</h1>
               <button
                 className="profile__edit"
                 type="button"
@@ -45,7 +47,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onImagePopup }) => {
                 onClick={onEditProfile}
               />
             </div>
-            <p className="profile__occupation">{userDescription}</p>
+            <p className="profile__occupation">{currentUser.about}</p>
           </div>
           <button
             className="profile__add"
