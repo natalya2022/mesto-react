@@ -4,7 +4,7 @@ import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike }) => {
+const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike, onCardDelete }) => {
   // const [cards, setCards] = useState([]);
   // const [userName, setUserName] = useState('');
   // const [userDescription, setUserDescription] = useState('');
@@ -61,7 +61,7 @@ const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, on
       <section className="photo-grid" aria-label="Фотогалерея">
         <ul className="photo-grid__places">
           {cards.map((card) => (
-            <Card key={card._id} onImagePopup={onImagePopup} card={card} onCardLike={onCardLike}/>
+            <Card key={card._id} onImagePopup={onImagePopup} card={card} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
           ))}
         </ul>
       </section>
