@@ -100,6 +100,16 @@ function App() {
       .catch(console.error);
   }
 
+  function handleUpdateAvatar(avatar) {
+    api
+      .editUserAvatar(avatar)
+      .then(userData => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -122,7 +132,11 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
