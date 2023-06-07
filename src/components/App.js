@@ -10,6 +10,7 @@ import FormAvatar from './FormAvatar';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -81,6 +82,16 @@ function App() {
       .catch(console.error);
   }
 
+  function handleUpdateUser(name, about) {
+    api
+      .editUserProfile(name, about)
+      .then(userData => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -98,6 +109,7 @@ function App() {
             />
             <Footer />
           </div>
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
           <PopupWithForm
             title={'Обновить аватар'}
             name={'avatar'}
@@ -105,14 +117,6 @@ function App() {
             onClose={closeAllPopups}
           >
             <FormAvatar />
-          </PopupWithForm>
-          <PopupWithForm
-            title={'Редактировать профиль'}
-            name={'profile'}
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-          >
-            <FormEdit />
           </PopupWithForm>
           <PopupWithForm
             title={'Новое место'}
