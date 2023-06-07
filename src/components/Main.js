@@ -1,35 +1,10 @@
-import React, { useState } from 'react';
-import { api } from '../utils/Api';
+import React from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike, onCardDelete }) => {
-  // const [cards, setCards] = useState([]);
-  // const [userName, setUserName] = useState('');
-  // const [userDescription, setUserDescription] = useState('');
-  // const [userAvatar, setUserAvatar] = useState('');
+const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike, onCardDelete }) => {  
   const currentUser = React.useContext(CurrentUserContext);
-
-  // React.useEffect(() => {
-  //   api
-  //     .getUserInfo()
-  //     .then(user => {
-  //       setUserName(user.name);
-  //       setUserDescription(user.about);
-  //       setUserAvatar(user.avatar);
-  //     })
-  //     .catch(console.error);
-  // }, []);
-
-  // React.useEffect(() => {
-  //   api
-  //     .getInitialCards()
-  //     .then(cards => {
-  //       setCards(cards);
-  //     })
-  //     .catch(console.error);
-  // }, []);
 
   return (
     <main className="content">

@@ -3,14 +3,12 @@ import './../index.css';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
-import PopupWithForm from './PopupWithForm';
-import FormEdit from './FormEdit';
-import FormAdd from './FormAdd';
-import FormAvatar from './FormAvatar';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -92,6 +90,16 @@ function App() {
       .catch(console.error);
   }
 
+  function handleAddPlaceSubmit(item) {
+    api
+      .addNewCard(item)
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -109,24 +117,17 @@ function App() {
             />
             <Footer />
           </div>
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-          <PopupWithForm
-            title={'Обновить аватар'}
-            name={'avatar'}
-            isOpen={isEditAvatarPopupOpen}
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-          >
-            <FormAvatar />
-          </PopupWithForm>
-          <PopupWithForm
-            title={'Новое место'}
-            name={'place'}
+            onUpdateUser={handleUpdateUser}
+          />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            buttonText={'Создать'}
-          >
-            <FormAdd />
-          </PopupWithForm>
+            onAddPlace={handleAddPlaceSubmit}
+          />
           <ImagePopup
             link={imageData.link}
             name={imageData.name}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
-import FormEdit from './FormEdit'; // убрать элемент
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
@@ -47,7 +46,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
           required
           minLength={2}
           maxLength={40}
-          value={name}
+          value={name || ''}
           onChange={handleChangeName}
         />
         <span className="form-name-error" />
@@ -60,7 +59,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
           required
           minLength={2}
           maxLength={200}
-          value={description}
+          value={description || ''}
           onChange={handleChangeDescription}
         />
         <span className="form-job-error" />
