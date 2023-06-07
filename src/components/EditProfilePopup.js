@@ -11,7 +11,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser]);
-  
+
   function handleChangeName(e) {
     setName(e.target.value);
   }
@@ -24,9 +24,9 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
     e.preventDefault();
     onUpdateUser({
       name,
-      about: description,
+      about: description
     });
-  } 
+  }
 
   return (
     <PopupWithForm

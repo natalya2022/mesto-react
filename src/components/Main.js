@@ -2,8 +2,15 @@ import React from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-
-const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, onCardLike, onCardDelete }) => {  
+const Main = ({
+  cards,
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onImagePopup,
+  onCardLike,
+  onCardDelete
+}) => {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
@@ -35,8 +42,14 @@ const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onImagePopup, on
       </section>
       <section className="photo-grid" aria-label="Фотогалерея">
         <ul className="photo-grid__places">
-          {cards.map((card) => (
-            <Card key={card._id} onImagePopup={onImagePopup} card={card} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
+          {cards.map(card => (
+            <Card
+              key={card._id}
+              onImagePopup={onImagePopup}
+              card={card}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </ul>
       </section>
